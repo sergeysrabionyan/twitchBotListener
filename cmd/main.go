@@ -8,6 +8,7 @@ import (
 	"github.com/joho/godotenv"
 
 	"twitchBot/internal/commands/atlas"
+	"twitchBot/internal/commands/build"
 	"twitchBot/internal/commands/profile"
 	"twitchBot/internal/commands/smile"
 	"twitchBot/internal/config"
@@ -26,6 +27,7 @@ func main() {
 		profile.New(),
 		atlas.New(),
 		smile.New(),
+		build.New(),
 	)
 
 	processMessages(conf, commandsService)
@@ -46,7 +48,7 @@ func processMessages(conf *config.Config, commandsService *command_builder.Servi
 			return
 		}
 
-		client.Say(conf.Twitch.ChannelName, text)
+		client.Reply(conf.Twitch.ChannelName, message.ID, text)
 	})
 
 	client.Join(conf.Twitch.ChannelName)

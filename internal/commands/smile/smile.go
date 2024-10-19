@@ -5,12 +5,12 @@ import (
 )
 
 type Smile struct {
-	image *string
+	text *string
 }
 
 func New() *Smile {
 	return &Smile{
-		image: new(string),
+		text: new(string),
 	}
 }
 
@@ -19,9 +19,9 @@ func (p *Smile) GetCommandAlias() string {
 }
 
 func (p *Smile) GetValue() string {
-	return *p.image
+	return *p.text
 }
 
 func (p *Smile) FillData(conf *config.Config) {
-	*p.image = conf.Commands.SmileMessage
+	*p.text = conf.Commands.SmileMessage
 }

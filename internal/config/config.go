@@ -7,6 +7,7 @@ type Config struct {
 		ProfileURL   string `envconfig:"PROFILE_URL"`
 		AtlasURL     string `envconfig:"ATLAS_URL"`
 		SmileMessage string `envconfig:"SMILE_MESSAGE"`
+		BuildURL     string `envconfig:"BUILD_URL"`
 	}
 	Twitch struct {
 		BotAccessKey string `envconfig:"BOT_ACCESS_KEY"`
