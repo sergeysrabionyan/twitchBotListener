@@ -1,7 +1,7 @@
 package smile
 
 import (
-	"twitchBot/internal/config"
+	"twitchBotListener/internal/config"
 )
 
 type Smile struct {

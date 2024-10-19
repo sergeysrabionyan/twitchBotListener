@@ -1,7 +1,7 @@
 package build
 
 import (
-	"twitchBot/internal/config"
+	"twitchBotListener/internal/config"
 )
 
 type Build struct {

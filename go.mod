@@ -1,4 +1,4 @@
-module twitchBot
+module twitchBotListener
 
 go 1.22
 

@@ -3,7 +3,8 @@ package command_builder
 import (
 	"errors"
 	"strings"
-	"twitchBot/internal/config"
+	"twitchBotListener/internal/config"
+	"twitchBotListener/internal/utls"
 )
 
 type command interface {
@@ -33,22 +34,13 @@ func (s *Service) RegisterCommands(com ...command) {
 }
 
 func (s *Service) ProcessCommand(alias string) (string, error) {
-	alias = strings.ReplaceAll(removeInvalidUTF8Bytes(alias), " ", "")
-	comm, ok := s.commands[alias]
+	comm, ok := s.commands[s.formatString(alias)]
 	if !ok {
 		return "", errors.New("command not found")
 	}
 	return comm.GetValue(), nil
 }
 
-// Костыль из-за того, что твич иногда присылает не utf-8, а какой-то мусор в конце строки
-func removeInvalidUTF8Bytes(input string) string {
-	var result []byte
-	for _, v := range input {
-		if v < 32 || v > 127 {
-			continue
-		}
-		result = append(result, byte(v))
-	}
-	return string(result)
+func (s *Service) formatString(alias string) string {
+	return strings.ToLower(strings.ReplaceAll(utls.RemoveInvalidUTF8Bytes(alias), " ", ""))
 }

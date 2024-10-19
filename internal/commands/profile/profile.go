@@ -1,7 +1,7 @@
 package profile
 
 import (
-	"twitchBot/internal/config"
+	"twitchBotListener/internal/config"
 )
 
 type Profile struct {

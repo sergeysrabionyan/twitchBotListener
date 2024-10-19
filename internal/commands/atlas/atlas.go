@@ -1,7 +1,7 @@
 package atlas
 
 import (
-	"twitchBot/internal/config"
+	"twitchBotListener/internal/config"
 )
 
 type Atlas struct {

@@ -7,12 +7,13 @@ import (
 	"github.com/gempir/go-twitch-irc/v4"
 	"github.com/joho/godotenv"
 
-	"twitchBot/internal/commands/atlas"
-	"twitchBot/internal/commands/build"
-	"twitchBot/internal/commands/profile"
-	"twitchBot/internal/commands/smile"
-	"twitchBot/internal/config"
-	"twitchBot/internal/services/command_builder"
+	"twitchBotListener/internal/commands/atlas"
+	"twitchBotListener/internal/commands/build"
+	"twitchBotListener/internal/commands/profile"
+	"twitchBotListener/internal/commands/russia"
+	"twitchBotListener/internal/commands/smile"
+	"twitchBotListener/internal/config"
+	"twitchBotListener/internal/services/command_builder"
 )
 
 func main() {
@@ -28,6 +29,7 @@ func main() {
 		atlas.New(),
 		smile.New(),
 		build.New(),
+		russia.New(),
 	)
 
 	processMessages(conf, commandsService)
