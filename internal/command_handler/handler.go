@@ -25,3 +25,9 @@ func HandleChatMessage(client *twitch.Client, conf *config.Config, commandsServi
 		client.Reply(conf.Twitch.ChannelName, message.ID, text)
 	}
 }
+
+func HandleWhisperMessage(client *twitch.Client, conf *config.Config) func(message twitch.WhisperMessage) {
+	return func(message twitch.WhisperMessage) {
+		client.Reply(conf.Twitch.ChannelName, message.MessageID, conf.Handlers.WhisperMessage)
+	}
+}

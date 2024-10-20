@@ -30,15 +30,16 @@ func main() {
 
 	// Регистрация используемых команд
 	commandsService.RegisterCommands(
-		profile.New(),
-		atlas.New(),
-		smile.New(),
-		build.New(),
-		russia.New(),
+		profile.New(conf),
+		atlas.New(conf),
+		smile.New(conf),
+		build.New(conf),
+		russia.New(conf),
 	)
 
 	// Установка обработчиков для чата
 	client.OnPrivateMessage(handlers.HandleChatMessage(client, conf, commandsService))
+	client.OnWhisperMessage(handlers.HandleWhisperMessage(client, conf))
 
 	// Подключение бота в чат
 	client.Join(conf.Twitch.ChannelName)

@@ -8,9 +8,9 @@ type Smile struct {
 	text *string
 }
 
-func New() *Smile {
+func New(conf *config.Config) *Smile {
 	return &Smile{
-		text: new(string),
+		text: &conf.Commands.SmileMessage,
 	}
 }
 
@@ -20,8 +20,4 @@ func (p *Smile) GetCommandAlias() string {
 
 func (p *Smile) GetValue() string {
 	return *p.text
-}
-
-func (p *Smile) FillData(conf *config.Config) {
-	*p.text = conf.Commands.SmileMessage
 }

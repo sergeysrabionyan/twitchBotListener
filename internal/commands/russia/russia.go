@@ -8,9 +8,9 @@ type Russia struct {
 	text *string
 }
 
-func New() *Russia {
+func New(conf *config.Config) *Russia {
 	return &Russia{
-		text: new(string),
+		text: &conf.Commands.GoolMessage,
 	}
 }
 
@@ -20,8 +20,4 @@ func (p *Russia) GetCommandAlias() string {
 
 func (p *Russia) GetValue() string {
 	return *p.text
-}
-
-func (p *Russia) FillData(conf *config.Config) {
-	*p.text = conf.Commands.GoolMessage
 }

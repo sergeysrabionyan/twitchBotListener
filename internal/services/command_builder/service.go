@@ -10,7 +10,7 @@ import (
 type command interface {
 	GetCommandAlias() string
 	GetValue() string
-	FillData(config *config.Config)
+	Validate() error
 }
 
 type Service struct {
@@ -28,7 +28,6 @@ func NewService(cnf *config.Config) *Service {
 func (s *Service) RegisterCommands(com ...command) {
 	for _, cmd := range com {
 		lCmd := cmd
-		lCmd.FillData(s.CommandData)
 		s.commands[cmd.GetCommandAlias()] = lCmd
 	}
 }

@@ -8,9 +8,9 @@ type Build struct {
 	url *string
 }
 
-func New() *Build {
+func New(conf *config.Config) *Build {
 	return &Build{
-		url: new(string),
+		url: &conf.Commands.BuildURL,
 	}
 }
 
@@ -20,8 +20,4 @@ func (p *Build) GetCommandAlias() string {
 
 func (p *Build) GetValue() string {
 	return *p.url
-}
-
-func (p *Build) FillData(conf *config.Config) {
-	*p.url = conf.Commands.BuildURL
 }

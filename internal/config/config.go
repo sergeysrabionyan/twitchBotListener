@@ -15,6 +15,9 @@ type Config struct {
 		BotUsername  string `envconfig:"BOT_USERNAME"`
 		ChannelName  string `envconfig:"CHANNEL_NAME"`
 	}
+	Handlers struct {
+		WhisperMessage string `envconfig:"WHISPER_MESSAGE"`
+	}
 }
 
 func NewConfigFromENV() (*Config, error) {

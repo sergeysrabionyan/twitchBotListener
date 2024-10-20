@@ -8,9 +8,9 @@ type Atlas struct {
 	url *string
 }
 
-func New() *Atlas {
+func New(config *config.Config) *Atlas {
 	return &Atlas{
-		url: new(string),
+		url: &config.Commands.AtlasURL,
 	}
 }
 
@@ -20,8 +20,4 @@ func (p *Atlas) GetCommandAlias() string {
 
 func (p *Atlas) GetValue() string {
 	return *p.url
-}
-
-func (p *Atlas) FillData(config *config.Config) {
-	*p.url = config.Commands.AtlasURL
 }
