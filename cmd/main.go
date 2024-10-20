@@ -7,6 +7,7 @@ import (
 	"github.com/gempir/go-twitch-irc/v4"
 	"github.com/joho/godotenv"
 
+	handlers "twitchBotListener/internal/command_handler"
 	"twitchBotListener/internal/commands/atlas"
 	"twitchBotListener/internal/commands/build"
 	"twitchBotListener/internal/commands/profile"
@@ -19,11 +20,15 @@ import (
 func main() {
 	godotenv.Load(".env")
 
+	// Инициализация конфгиа
 	conf, err := config.NewConfigFromENV()
 	if err != nil {
 		panic(err)
 	}
+	client := twitch.NewClient(conf.Twitch.BotUsername, conf.Twitch.BotAccessKey)
 	commandsService := command_builder.NewService(conf)
+
+	// Регистрация используемых команд
 	commandsService.RegisterCommands(
 		profile.New(),
 		atlas.New(),
@@ -32,30 +37,13 @@ func main() {
 		russia.New(),
 	)
 
-	processMessages(conf, commandsService)
-}
+	// Установка обработчиков для чата
+	client.OnPrivateMessage(handlers.HandleChatMessage(client, conf, commandsService))
 
-func processMessages(conf *config.Config, commandsService *command_builder.Service) {
-	client := twitch.NewClient(conf.Twitch.BotUsername, conf.Twitch.BotAccessKey)
-
-	client.OnPrivateMessage(func(message twitch.PrivateMessage) {
-		fmt.Printf("%s: %s\n", message.User.DisplayName, message.Message)
-
-		text, err := commandsService.ProcessCommand(message.Message)
-		if err != nil {
-			fmt.Println("error while processing message:", err)
-			return
-		}
-		if text == "" {
-			return
-		}
-
-		client.Reply(conf.Twitch.ChannelName, message.ID, text)
-	})
-
+	// Подключение бота в чат
 	client.Join(conf.Twitch.ChannelName)
 
-	err := client.Connect()
+	err = client.Connect()
 	if err != nil {
 		log.Fatalf("Failed to connect to Twitch IRC: %v", err)
 	}
