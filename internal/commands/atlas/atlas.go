@@ -1,6 +1,7 @@
 package atlas
 
 import (
+	"errors"
 	"twitchBotListener/internal/config"
 )
 
@@ -20,4 +21,11 @@ func (p *Atlas) GetCommandAlias() string {
 
 func (p *Atlas) GetValue() string {
 	return *p.url
+}
+
+func (p *Atlas) Validate() error {
+	if p.url == nil || *p.url == "" {
+		return errors.New("atlas URL is required")
+	}
+	return nil
 }

@@ -37,6 +37,9 @@ func (s *Service) ProcessCommand(alias string) (string, error) {
 	if !ok {
 		return "", errors.New("command not found")
 	}
+	if err := comm.Validate(); err != nil {
+		return "", err
+	}
 	return comm.GetValue(), nil
 }
 

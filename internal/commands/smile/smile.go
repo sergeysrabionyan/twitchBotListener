@@ -1,6 +1,7 @@
 package smile
 
 import (
+	"errors"
 	"twitchBotListener/internal/config"
 )
 
@@ -20,4 +21,11 @@ func (p *Smile) GetCommandAlias() string {
 
 func (p *Smile) GetValue() string {
 	return *p.text
+}
+
+func (p *Smile) Validate() error {
+	if p.text == nil || *p.text == "" {
+		return errors.New("smile URL is required")
+	}
+	return nil
 }

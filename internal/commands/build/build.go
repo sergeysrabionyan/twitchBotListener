@@ -1,6 +1,7 @@
 package build
 
 import (
+	"errors"
 	"twitchBotListener/internal/config"
 )
 
@@ -20,4 +21,11 @@ func (p *Build) GetCommandAlias() string {
 
 func (p *Build) GetValue() string {
 	return *p.url
+}
+
+func (p *Build) Validate() error {
+	if p.url == nil || *p.url == "" {
+		return errors.New("build URL is required")
+	}
+	return nil
 }

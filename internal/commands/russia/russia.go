@@ -1,6 +1,7 @@
 package russia
 
 import (
+	"errors"
 	"twitchBotListener/internal/config"
 )
 
@@ -20,4 +21,11 @@ func (p *Russia) GetCommandAlias() string {
 
 func (p *Russia) GetValue() string {
 	return *p.text
+}
+
+func (p *Russia) Validate() error {
+	if p.text == nil || *p.text == "" {
+		return errors.New("russia URL is required")
+	}
+	return nil
 }
